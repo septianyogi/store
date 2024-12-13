@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:store/database/migrations/create_personal_access_tokens_table.dart';
 import 'package:vania/vania.dart';
 import 'create_users_table.dart';
 import 'create_product_notes.dart';
@@ -7,7 +8,6 @@ import 'create_orders.dart';
 import 'create_vendors.dart';
 import 'create_products.dart';
 import 'create_customer_table.dart';
-
 void main(List<String> args) async {
   await MigrationConnection().setup();
   if (args.isNotEmpty && args.first.toLowerCase() == "migrate:fresh") {
@@ -20,8 +20,9 @@ void main(List<String> args) async {
 }
 
 class Migrate {
-  registry() async {
-		 await CreateCustomerTable().up();
+  registry() async{
+		 await CreatePersonalAccessTokensTable().up();
+		await CreateCustomerTable().up();
      await CreateVendors().up();
 		 await CreateUserTable().up();
      await CreateOrders().up();
