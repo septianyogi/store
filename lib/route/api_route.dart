@@ -1,6 +1,7 @@
 import 'package:store/app/http/controllers/customer_controller.dart';
 import 'package:store/app/http/controllers/order_controller.dart';
 import 'package:store/app/http/controllers/product_controller.dart';
+import 'package:store/app/http/controllers/product_notes_controller.dart';
 import 'package:store/app/http/controllers/vendor_controller.dart';
 import 'package:vania/vania.dart';
 import 'package:store/app/http/controllers/home_controller.dart';
@@ -17,43 +18,30 @@ class ApiRoute implements Route {
     final productController = ProductController();
     final vendorController = VendorController();
 
-    Router.post("/product/create",
-        (Request request) => productController.create(request));
+    Router.post("/product/create", productController.create);
     Router.get("/product/get", productController.index);
-    Router.patch("/product/update/{id}",
-        (Request request, int id) => productController.update(request, id));
-    Router.delete(
-        "/product/delete/{id}", (int id) => productController.destroy(id));
+    Router.patch("/product/update/{id}", productController.update);
+    Router.delete("/product/delete/{id}", productController.destroy);
 
-    Router.post("/vendor/create",
-        (Request request) => vendorController.create(request));
+    Router.post("/productnotes/create", productNotesController.create);
+    Router.get("/productnotes/get", productNotesController.index);
+    Router.patch("/productnotes/update/{id}", productNotesController.update);
+    Router.delete("/productnotes/delete/{id}", productNotesController.destroy);
+
+    Router.post("/vendor/create", vendorController.create);
     Router.get("/vendor/get", vendorController.index);
-    Router.patch("/vendor/update/{id}",
-        (Request request, int id) => vendorController.update(request, id));
-    Router.delete(
-        "/vendor/delete/{id}", (int id) => vendorController.destroy(id));
+    Router.patch("/vendor/update/{id}", vendorController.update);
+    Router.delete("/vendor/delete/{id}", vendorController.destroy);
 
-    Router.post('/customer/create', (Request request) {
-      customerController.create(request);
-    });
+    Router.post('/customer/create', customerController.create);
     Router.get('/customer/get', customerController.index);
-    Router.patch('/customer/update', (Request request, int id) {
-      customerController.update(request, id);
-    });
-    Router.delete('/customer/delete', (int id) {
-      customerController.destroy(id);
-    });
+    Router.patch('/customer/update/{id}',customerController.update);
+    Router.delete('/customer/delete{id}', customerController.destroy);
 
-    Router.post('/order/create', (Request request) {
-      orderController.create(request);
-    });
+    Router.post('/order/create', orderController.create);
     Router.get('/order/get', orderController.index);
-    Router.patch('/order/update', (Request request, int id) {
-      orderController.update(request, id);
-    });
-    Router.delete('/order/delete', (int id) {
-      orderController.destroy(id);
-    });
+    Router.patch('/order/update/{id}', orderController.update);
+    Router.delete('/order/delete{id}', orderController.destroy);
 
     Router.get("/home", homeController.index);
 

@@ -1,27 +1,27 @@
 import 'package:store/app/models/order.dart';
-import 'package:store/app/models/orderitems.dart';
 import 'package:vania/vania.dart';
 
-class OrderController extends Controller {
-  Future<Response> index() async {
-    final order = await Order().query().select(['cust_id', 'order_date']).get();
+class OrderItemController extends Controller {
+
+     Future<Response> index() async {
+    final order = await Order().query().select(['order_id', 'prod_id', 'quantity']).get();
     return Response.json(
         {'data': order, 'message': 'order berhasil diambil'}, 200);
   }
 
   Future<Response> create(Request request) async {
     request.validate({
-      'cust_id': 'required',
-      'order_date': 'required',
+      'order_id': 'required',
+      'prod_id': 'required',
+      'quantity': 'required',
     });
 
-    // Insert ke tabel orders
     final order = await Order().query().insert({
-      'cust_id': request.input('cust_id'),
-      'order_date': request.input('order_date'),
+      'order_id': request.input('order_id'),
+      'prod_id': request.input('prod_id'),
+      'quantity': request.input('quantity'),
     });
 
-    // Response sukses
     return Response.json(
         {'message': 'Order berhasil ditambahkan', 'data': order}, 201);
   }
@@ -49,4 +49,5 @@ class OrderController extends Controller {
   }
 }
 
-final OrderController orderController = OrderController();
+final OrderItemController orderitemcontroller = OrderItemController();
+
