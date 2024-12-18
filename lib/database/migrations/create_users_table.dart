@@ -9,6 +9,7 @@ class CreateUserTable extends Migration {
       string('name');
       string('email');
       string('password');
+      string('created_at', defaultValue: null);
     });
   }
 
